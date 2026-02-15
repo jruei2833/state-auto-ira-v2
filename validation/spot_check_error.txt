@@ -1,0 +1,97 @@
+﻿python : Traceback (most 
+recent call last):
+At line:1 char:1
++ python 
+validation\spot_check.py 
+2>&1 | Out-File -FilePath 
+validation\ ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: (Tra  
+  ceback (most recent ca   
+ ll last)::String) [],     
+RemoteException
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+  File "C:\Users\JanyjorRue
+i\Documents\GITHUB\state-au
+to-ira-v2\validation\spot_c
+heck.py", line 199, in 
+<module>
+    main()
+    ~~~~^^
+  File "C:\Users\JanyjorRue
+i\Documents\GITHUB\state-au
+to-ira-v2\validation\spot_c
+heck.py", line 22, in main
+    df = 
+pd.read_csv(dataset_path)
+  File "C:\Users\JanyjorRue
+i\AppData\Local\Programs\Py
+thon\Python314\Lib\site-pac
+kages\pandas\io\parsers\rea
+ders.py", line 873, in 
+read_csv
+    return 
+_read(filepath_or_buffer, 
+kwds)
+  File "C:\Users\JanyjorRue
+i\AppData\Local\Programs\Py
+thon\Python314\Lib\site-pac
+kages\pandas\io\parsers\rea
+ders.py", line 300, in 
+_read
+    parser = TextFileReader
+(filepath_or_buffer, 
+**kwds)
+  File "C:\Users\JanyjorRue
+i\AppData\Local\Programs\Py
+thon\Python314\Lib\site-pac
+kages\pandas\io\parsers\rea
+ders.py", line 1645, in 
+__init__
+    self._engine = 
+self._make_engine(f, 
+self.engine)
+                   ~~~~~~~~
+~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\JanyjorRue
+i\AppData\Local\Programs\Py
+thon\Python314\Lib\site-pac
+kages\pandas\io\parsers\rea
+ders.py", line 1904, in 
+_make_engine
+    self.handles = 
+get_handle(
+                   
+~~~~~~~~~~^
+        f,
+        ^^
+    ...<6 lines>...
+        storage_options=sel
+f.options.get("storage_opti
+ons", None),
+        ^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\JanyjorRue
+i\AppData\Local\Programs\Py
+thon\Python314\Lib\site-pac
+kages\pandas\io\common.py",
+ line 926, in get_handle
+    handle = open(
+        handle,
+    ...<3 lines>...
+        newline="",
+    )
+FileNotFoundError: [Errno 
+2] No such file or 
+directory: 'C:\\Users\\Jany
+jorRuei\\Documents\\GITHUB\
+\state-auto-ira-v2\\validat
+ion\\data\\processed\\state
+_auto_ira_401k_dataset.csv'

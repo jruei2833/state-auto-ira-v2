@@ -15,15 +15,15 @@ METHODOLOGY_DIR = os.path.join(BASE_DIR, "methodology")
 
 MANDATE_DATES = {
     "OR": "2017-11-01",
-    "IL": "2018-05-01",
-    "CA": "2018-11-01",
+    "IL": "2018-11-01",
+    "CA": "2019-07-01",
     "CT": "2022-04-01",
     "MD": "2022-09-01",
     "CO": "2023-01-01",
     "VA": "2023-07-01",
     "ME": "2024-01-01",
-    "DE": "2024-01-01",
-    "NJ": "2024-03-01",
+    "DE": "2024-07-01",
+    "NJ": "2024-06-30",
 }
 
 PROGRAM_NAMES = {
@@ -50,7 +50,7 @@ F5500_COLS = {
     "date": "PLAN_EFF_DATE",
     "state": "SPONS_DFE_MAIL_US_STATE",
     "ein": "SPONS_DFE_EIN",
-    "name": "SPONSOR_DFE_NAME",
+    "name": "SPONS_DFE_DBA_NAME",
     "city": "SPONS_DFE_MAIL_US_CITY",
     "plan_name": "PLAN_NAME",
     "participants": "TOT_PARTCP_BOY_CNT",
@@ -64,7 +64,7 @@ F5500SF_COLS = {
     "date": "SF_PLAN_EFF_DATE",
     "state": "SF_SPONS_US_STATE",
     "ein": "SF_SPONS_EIN",
-    "name": "SF_SPONSOR_NAME",
+    "name": "SF_SPONS_DBA_NAME",
     "city": "SF_SPONS_US_CITY",
     "plan_name": "SF_PLAN_NAME",
     "participants": "SF_TOT_PARTCP_BOY_CNT",
@@ -164,12 +164,8 @@ def process_file(filepath, col_map, label):
 
     # Build standardized output
     output = pd.DataFrame()
-    output["EIN"] = df[ein_col].astype(str).str.strip().str.zfill(9)
-    if name_col and name_col in df.columns:
-        output["FIRM_NAME"] = df[name_col].astype(str).str.strip()
-        output.loc[output["FIRM_NAME"].isin(["nan", "NaN", ""]), "FIRM_NAME"] = None
-    else:
-        output["FIRM_NAME"] = None
+    output["EIN"] = df[ein_col].astype(str).str.strip().str.replace('.0', '', regex=False).str.zfill(9)
+    output["FIRM_NAME"] = df[name_col].astype(str).str.strip() if name_col and name_col in df.columns else ""
     output["PLAN_NAME"] = df[plan_name_col].astype(str).str.strip() if plan_name_col and plan_name_col in df.columns else ""
     output["STATE"] = df[state_col].values
     output["CITY"] = df[city_col].astype(str).str.strip() if city_col and city_col in df.columns else ""
@@ -280,7 +276,7 @@ def main():
 
     if contrib_data:
         all_contrib = pd.concat(contrib_data, ignore_index=True)
-        all_contrib["EIN"] = all_contrib["EIN"].astype(str).str.strip().str.zfill(9)
+        all_contrib["EIN"] = all_contrib["EIN"].astype(str).str.strip().str.replace('.0', '', regex=False).str.zfill(9)
         all_contrib["EMPLOYER_CONTRIBUTION"] = pd.to_numeric(all_contrib["EMPLOYER_CONTRIBUTION"], errors="coerce")
         all_contrib = all_contrib.dropna(subset=["EMPLOYER_CONTRIBUTION"])
         contrib_by_ein = all_contrib.groupby("EIN")["EMPLOYER_CONTRIBUTION"].last().reset_index()

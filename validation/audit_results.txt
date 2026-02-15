@@ -1,0 +1,126 @@
+﻿======================================================================
+STATE AUTO-IRA DATASET AUDIT
+======================================================================
+
+Dataset: C:\Users\JanyjorRuei\Documents\GITHUB\state-auto-ira-v2\data\processed\state_auto_ira_401k_dataset.csv
+Total rows: 115,690
+Columns: ['EIN', 'FIRM_NAME', 'PLAN_NAME', 'STATE', 'CITY', 'PLAN_EFFECTIVE_DATE', 'EMPLOYEE_COUNT', 'SOURCE', 'EMPLOYER_CONTRIBUTION']
+
+======================================================================
+CHECK 1: All plan effective dates fall AFTER state mandate dates
+======================================================================
+  PASS  CA: 81,526 records | earliest: 2018-11-02 (mandate: 2018-11-01)
+  PASS  CO:  2,788 records | earliest: 2023-01-03 (mandate: 2023-01-01)
+  PASS  CT:  2,408 records | earliest: 2022-04-04 (mandate: 2022-04-01)
+  PASS  DE:    215 records | earliest: 2024-01-07 (mandate: 2024-01-01)
+  PASS  IL: 14,790 records | earliest: 2018-05-06 (mandate: 2018-05-01)
+  PASS  MD:  3,555 records | earliest: 2022-09-16 (mandate: 2022-09-01)
+  PASS  ME:    143 records | earliest: 2024-01-22 (mandate: 2024-01-01)
+  PASS  NJ:    816 records | earliest: 2024-03-08 (mandate: 2024-03-01)
+  PASS  OR:  7,299 records | earliest: 2017-11-15 (mandate: 2017-11-01)
+  PASS  VA:  2,150 records | earliest: 2023-07-05 (mandate: 2023-07-01)
+
+  Result: PASS
+
+======================================================================
+CHECK 2: EIN deduplication (each EIN appears exactly once)
+======================================================================
+  Total rows:   115,690
+  Unique EINs:  115,690
+  Duplicate rows: 0
+
+  Result: PASS
+
+======================================================================
+CHECK 3: Only mandate states present
+======================================================================
+  PASS: All 10 states are valid mandate states
+  States: ['CA', 'CO', 'CT', 'DE', 'IL', 'MD', 'ME', 'NJ', 'OR', 'VA']
+
+======================================================================
+CHECK 4: Null/missing value analysis
+======================================================================
+    OK  EIN                              0 nulls (0.0%)
+    OK  FIRM_NAME                        0 nulls (0.0%)
+    OK  PLAN_NAME                        0 nulls (0.0%)
+    OK  STATE                            0 nulls (0.0%)
+    OK  CITY                             0 nulls (0.0%)
+    OK  PLAN_EFFECTIVE_DATE              0 nulls (0.0%)
+    OK  EMPLOYEE_COUNT                   8 nulls (0.0%)
+    OK  SOURCE                           0 nulls (0.0%)
+  HIGH  EMPLOYER_CONTRIBUTION      111,440 nulls (96.3%)
+
+======================================================================
+CHECK 5: Source file breakdown
+======================================================================
+  Form5500SF_2024             49,338 records (42.6%)
+  Form5500SF_2023             30,377 records (26.3%)
+  Form5500SF_2021              9,474 records (8.2%)
+  Form5500SF_2022              8,338 records (7.2%)
+  Form5500SF_2020              7,997 records (6.9%)
+  Form5500SF_2019              5,431 records (4.7%)
+  Form5500_2024                1,210 records (1.0%)
+  Form5500_2023                  904 records (0.8%)
+  Form5500_2022                  626 records (0.5%)
+  Form5500_2021                  610 records (0.5%)
+  Form5500SF_2018                560 records (0.5%)
+  Form5500_2019                  402 records (0.3%)
+  Form5500_2020                  341 records (0.3%)
+  Form5500_2018                   77 records (0.1%)
+  Form5500SF_2017                  5 records (0.0%)
+
+======================================================================
+CHECK 6: Comparison to previous Claude Code / Codex runs (112,142)
+======================================================================
+  State      Previous    Current    Delta  Status
+  -------- ---------- ---------- --------  ----------
+  CA           79,485     81,526   +2,041  +2041
+  CO            2,630      2,788     +158  +158
+  CT            2,332      2,408      +76  +76
+  DE              207        215       +8  +8
+  IL           14,035     14,790     +755  +755
+  MD            3,464      3,555      +91  +91
+  ME              137        143       +6  +6
+  NJ              783        816      +33  +33
+  OR            7,015      7,299     +284  +284
+  VA            2,054      2,150      +96  +96
+  TOTAL       112,142    115,690   +3,548
+
+  Result: 3.16% variance (+3,548 records)
+
+======================================================================
+CHECK 7: Employee count distribution (reasonableness)
+======================================================================
+  Records with employee data: 115,682 / 115,690 (100.0%)
+  Min:    0
+  25th:   2
+  Median: 6
+  75th:   15
+  Max:    10213
+  Mean:   18.4
+  Zero employees: 17,614
+  >10,000 employees: 1
+
+======================================================================
+CHECK 8: Plan effective date distribution by year
+======================================================================
+  2017:       13  
+  2018:    1,468  ##
+  2019:   12,067  ########################
+  2020:   12,665  #########################
+  2021:   14,644  #############################
+  2022:   26,280  ####################################################
+  2023:   22,240  ############################################
+  2024:   25,871  ###################################################
+  2025:      442  
+
+======================================================================
+AUDIT SUMMARY
+======================================================================
+  PASS  Mandate date filtering
+  PASS  EIN deduplication
+  PASS  Valid states only
+  FAIL  Previous run comparison
+
+  Total records: 115,690
+  Audit completed.
