@@ -1,18 +1,36 @@
 # State Auto-IRA Research Project
 
-**Identifying firms that established 401(k) plans in response to state auto-IRA mandates**
+**Identifying firms that established their own 401(k) plans instead of using state auto-IRA programs**
 
 ---
 
-## Key Finding
+## The Research Question
 
-State auto-IRA mandates act as catalysts for private retirement plan formation. We identified **106,577 to 115,690 unique firms** (depending on mandate date definition) across 10 states that established 401(k) plans after their state's auto-IRA mandate took effect, supporting Sita Slavov's NBER research.
+When states mandate that employers provide retirement savings access, employers have a choice: enroll employees in the state's auto-IRA program (cheaper, less administrative burden) or establish their own 401(k) plan (more costly, more complex). The mandate only requires the cheaper option — so why do some firms voluntarily choose the more expensive path?
+
+This is the question at the heart of Sita Slavov's NBER research. Her work finds that state auto-IRA mandates act as *catalysts* for private retirement plan formation rather than crowding out employer-sponsored plans. The mandates appear to prompt firms to think about retirement benefits, and some decide that a full 401(k) — with employer matching, greater investment options, and higher contribution limits — better serves their business goals.
+
+But Slavov's research, based on aggregate administrative tax data, couldn't identify *which specific firms* made this choice. Without a firm-level dataset, the follow-up question remains unanswered: **what types of firms tend to set up their own 401(k) rather than defaulting to the state program?**
+
+This project fills that gap.
+
+---
+
+## What This Dataset Provides
+
+Using DOL Form 5500 filings, we identified **106,577 to 115,690 firms** (depending on mandate date definition) across 10 states that established new 401(k) plans after their state's auto-IRA mandate took effect. Each record includes firm name, EIN, state, city, plan start date, and employee count — enabling the kind of firm-level analysis that wasn't previously possible.
+
+This dataset can support research into questions like:
+- Are mandate-responsive firms concentrated in certain industries or firm sizes?
+- Do firms in states with earlier mandates show different patterns than later adopters?
+- What is the relationship between firm size and the decision to establish a 401(k) vs. use the state program?
+- How do employer contribution patterns vary across mandate-responsive firms?
 
 ---
 
 ## Datasets
 
-This project provides two dataset versions using different mandate date definitions:
+Two versions using different mandate date definitions:
 
 | Version | Firms | Approach | Use Case |
 |---------|-------|----------|----------|
@@ -130,18 +148,27 @@ https://www.dol.gov/agencies/ebsa/about-ebsa/our-activities/public-disclosure/fo
 
 ### Independent Audits
 
-- **Claude.ai audited Antigravity's work**: PASS — FIRM_NAME fix correctly diagnosed and implemented
-- **Antigravity audited Claude.ai's script**: PASS — filtering logic fundamentally sound, 3 mandate dates adjusted per recommendation
+- **Claude.ai audited Antigravity's work**: PASS
+- **Antigravity audited Claude.ai's script**: PASS — 3 mandate dates adjusted per recommendation
 
 ---
 
 ## Known Limitations
 
-1. **Employer contribution coverage**: Only 3.4-3.7% of records have contribution amounts. Form 5500-SF filers (~95% of dataset) do not file Schedule H/I.
-2. **Correlation, not causation**: Cannot prove mandates caused 401(k) establishment. Would require difference-in-differences analysis.
-3. **Filing lag**: Plans established in late 2024 won't fully appear until 2025-2026.
-4. **Match formulas unavailable**: Only aggregate contribution dollars, not match percentages (e.g., "50% up to 6%").
-5. **Zero-employee plans**: 15.2% of records show 0 employees (newly established or solo plans).
+1. **Correlation, not causation**: The dataset identifies firms that started 401(k)s after mandates, but cannot prove the mandate caused the decision. Establishing causality would require difference-in-differences analysis comparing mandate states to non-mandate states, or qualitative evidence such as firm statements citing the mandate.
+2. **Employer contribution coverage**: Only 3.4-3.7% of records have contribution amounts. Form 5500-SF filers (~95% of dataset) do not file Schedule H/I. Match formulas (e.g., "50% up to 6%") are not available in Form 5500 data — they are disclosed in Summary Plan Descriptions (SPDs).
+3. **Filing lag**: Plans established in late 2024 won't fully appear until 2025-2026, so recent mandate states (ME, DE, NJ) are underrepresented.
+4. **Zero-employee plans**: 15.2% of records show 0 employees (newly established or solo entrepreneur plans).
+
+---
+
+## Recommended Next Steps
+
+1. **Firm-level analysis**: Use the dataset to characterize which types of firms chose 401(k)s — by industry, size, geography, and contribution patterns
+2. **Difference-in-differences**: Pull Form 5500 data for non-mandate states as a control group to establish whether mandates caused the observed 401(k) adoption
+3. **Qualitative evidence**: Search for press releases, company statements, or news articles where firms cite the state mandate as motivation for establishing a 401(k)
+4. **Alternative contribution data**: Explore BrightScope, Vanguard's How America Saves, or PSCA Annual Survey for match formula data
+5. **Annual refresh**: Re-run as new Form 5500 filings become available (Vermont's July 2025 mandate will generate data in 2026)
 
 ---
 
@@ -155,7 +182,7 @@ Requires ~6 GB of raw Form 5500 data downloaded from the DOL website.
 python build_both.py
 ```
 
-This produces both v1-inclusive and v2-conservative datasets.
+This produces both v1-inclusive and v2-conservative datasets. See `methodology/state_auto_ira_prompts_log.md` for the complete record of prompts and tools used across all runs.
 
 ---
 
