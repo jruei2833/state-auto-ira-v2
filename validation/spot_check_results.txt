@@ -1,0 +1,50 @@
+﻿Dataset loaded: 115,690 rows
+
+ #  EIN          STATE SOURCE               FIRM_NAME                           CHECKS
+------------------------------------------------------------------------------------------------------------------------
+ 1  461602585    CA    Form5500SF_2023      CHANCES LEARNING CENTER             2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+ 2  820977091    CA    Form5500SF_2023      LTV ELECTRIC INC                    2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+ 3  832067369    CO    Form5500SF_2024      REALTY NEXT, LLC                    2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+ 4  800978458    CO    Form5500SF_2024      RJM CABINETS LLC                    2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+ 5  872757622    CT    Form5500SF_2023      PRILL HOLDINGS LLC                  2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+ 6  61192265     CT    Form5500SF_2023      BURR ROOFING, SIDING, & WINDOWS I   NOT_FOUND_IN_RAW
+ 7  842432880    DE    Form5500SF_2024      TOKAMAK ENERGY INC                  2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+ 8  990922801    DE    Form5500_2024        RODRIGUEZ TRUCKING CO               2J=PASS | Entity=2:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+ 9  208944290    IL    Form5500SF_2022      EDEN PARK ILLUMINATION, INC.        2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+10  882561026    IL    Form5500SF_2023      VDS HOLDING, LLC                    2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+11  472966416    MD    Form5500SF_2024      SSH CABIN JOHN                      2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+12  521789151    MD    Form5500SF_2023      DICKINSON JEWELERS INC.             2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+13  822615927    ME    Form5500SF_2024      WILLOWSAWAKE LLC                    2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+14  43622697     ME    Form5500SF_2024      LAKESIDE CONSTRUCTION INC.          NOT_FOUND_IN_RAW
+15  201955949    NJ    Form5500SF_2024      PLAGGE ENTERPRISES LLC              2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+16  853686179    NJ    Form5500SF_2024      CONFLICT SOLUTIONS LLC              2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+17  842032563    OR    Form5500SF_2024      TENDERLY HOSPICE, LLC               2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+18  272236147    OR    Form5500SF_2019      MARK W COMFORT                      2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+19  931894553    VA    Form5500SF_2024      INVICTUS CHARITABLE ADVISORS LLC    2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+20  541761421    VA    Form5500SF_2024      MW SQUARED, LLC                     2J=PASS | Entity=1:PASS | State=PASS | Date>Mandate=PASS | DateMatch=PASS
+
+================================================================================
+SPOT CHECK SUMMARY: 18 PASS / 2 FAIL / 20 total
+
+================================================================================
+COUNT DIFFERENCE INVESTIGATION
+================================================================================
+
+5500-SF 2024: 2,194 records with entity=2 (these are EXCLUDED by script)
+  Of those, 2,061 have 2J code
+  Breakdown: entity=2 should NOT appear in 5500-SF (it's a Form 5500 code)
+
+--- Dedup investigation ---
+Does a firm appear in both 5500 AND 5500-SF?
+  EINs in Form 5500 only: 168,091
+  EINs in Form 5500-SF only: 958,542
+  EINs in BOTH: 76,704
+  (EINs appearing in both are correctly handled by dedup)
+
+--- Contribution coverage ---
+  Schedule H/I files found: 128
+  Total Schedule H/I rows: 11,339,080
+  Note: Schedule H is filed by plans with 100+ participants (Form 5500)
+  Note: Schedule I is filed by plans with <100 participants (Form 5500)
+  Note: Form 5500-SF filers (~95% of dataset) do NOT file Schedule H/I
+  This explains the ~3.7% contribution coverage rate
