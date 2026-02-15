@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State Auto-IRA 401(k) Employer Search</title>
+    <meta name="description" content="Search and filter 115,000+ employers that established 401(k) plans in response to state auto-IRA mandates.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0f1117;
+            --bg-secondary: #1a1d2e;
+            --bg-card: #1e2235;
+            --bg-input: #252940;
+            --border: #2d3250;
+            --border-focus: #5b6abf;
+            --text-primary: #e8eaf0;
+            --text-secondary: #8b90a5;
+            --text-muted: #5d6280;
+            --accent: #6c7ae0;
+            --accent-glow: rgba(108, 122, 224, 0.15);
+            --accent-hover: #8490ef;
+            --success: #4ecb71;
+            --warning: #f5a623;
+            --danger: #e5534b;
+            --gradient-1: linear-gradient(135deg, #6c7ae0 0%, #9b6ce0 100%);
+            --gradient-2: linear-gradient(135deg, #1e2235 0%, #252940 100%);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.3);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            white-space: nowrap;
+        }
+
+        .header-meta {
+            font-size: 13px;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .header-meta .badge {
+            background: var(--accent-glow);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        /* Loading */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.4s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 16px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            text-align: center;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--border-focus);
+            transform: translateY(-2px);
+        }
+
+        .stat-card .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-card .stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        /* Search & Filters */
+        .controls {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .search-input-wrap {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input-wrap .icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
+        input[type="text"], select {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            width: 100%;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-input-wrap input {
+            padding-left: 40px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .filters-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .filter-group label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-group select {
+            min-width: 160px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(108, 122, 224, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-input);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--border-focus);
+        }
+
+        .actions-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .result-count {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .result-count strong {
+            color: var(--accent);
+        }
+
+        /* Table */
+        .table-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .table-scroll {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        thead {
+            background: var(--bg-secondary);
+            position: sticky;
+            top: 0;
+        }
+
+        th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border);
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+
+        th:hover {
+            color: var(--accent);
+        }
+
+        th .sort-icon {
+            margin-left: 4px;
+            opacity: 0.3;
+        }
+
+        th.sorted .sort-icon {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        tr {
+            transition: background 0.15s;
+        }
+
+        tbody tr:hover {
+            background: var(--accent-glow);
+        }
+
+        .state-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 12px;
+            background: var(--accent-glow);
+            color: var(--accent);
+        }
+
+        .firm-name {
+            font-weight: 500;
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .ein-cell {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .date-cell {
+            color: var(--text-secondary);
+        }
+
+        .number-cell {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .empty-state {
+            padding: 60px 24px;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .pagination button {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .pagination button:hover:not(:disabled) {
+            border-color: var(--border-focus);
+            background: var(--accent-glow);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .pagination .page-info {
+            color: var(--text-secondary);
+            font-size: 13px;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        /* File Input */
+        .file-prompt {
+            text-align: center;
+            padding: 80px 24px;
+        }
+
+        .file-prompt h2 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .file-prompt p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .file-input-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gradient-1);
+            color: white;
+            padding: 14px 28px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .file-input-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(108, 122, 224, 0.4);
+        }
+
+        .file-input-label input {
+            display: none;
+        }
+
+        .auto-load-note {
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-inner { flex-direction: column; align-items: flex-start; }
+            .search-row { flex-direction: column; }
+            .filters-row { flex-direction: column; }
+            .filter-group select { min-width: 100%; }
+            .actions-row { flex-direction: column; gap: 12px; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+<div class="loading-overlay hidden" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loadingText">Loading dataset...</div>
+</div>
+
+<header class="header">
+    <div class="header-inner">
+        <h1 id="headerTitle">State Auto-IRA 401(k) Employer Search</h1>
+        <div class="header-meta">
+            <span>DOL Form 5500 Data (2017-2024)</span>
+            <span class="badge" id="headerCount">Loading...</span>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <!-- File prompt (shown if CSV not auto-loaded) -->
+    <div id="filePrompt" class="file-prompt" style="display:none;">
+        <h2>Load Dataset</h2>
+        <p>Select the <code>state_auto_ira_401k_dataset.csv</code> file to search through the employer data.</p>
+        <label class="file-input-label">
+            📂 Choose CSV File
+            <input type="file" id="fileInput" accept=".csv">
+        </label>
+        <p class="auto-load-note">Expected location: <code>data/processed/state_auto_ira_401k_dataset.csv</code></p>
+    </div>
+
+    <!-- Main content (shown after data loads) -->
+    <div id="mainContent" style="display:none;">
+        <!-- Stats -->
+        <div class="stats-bar" id="statsBar"></div>
+
+        <!-- Search & Filters -->
+        <div class="controls">
+            <div class="search-row">
+                <div class="search-input-wrap">
+                    <span class="icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Search firm name, city, EIN, or plan name..." autocomplete="off">
+                </div>
+            </div>
+            <div class="filters-row">
+                <div class="filter-group">
+                    <label>State</label>
+                    <select id="stateFilter">
+                        <option value="">All States</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Plan Year</label>
+                    <select id="yearFilter">
+                        <option value="">All Years</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Min Employees</label>
+                    <input type="text" id="minEmpFilter" placeholder="e.g. 10" style="width:100px;">
+                </div>
+                <div class="filter-group">
+                    <label>Max Employees</label>
+                    <input type="text" id="maxEmpFilter" placeholder="e.g. 500" style="width:100px;">
+                </div>
+                <div style="display:flex; align-items:flex-end; gap:8px; margin-left:auto;">
+                    <button class="btn btn-secondary" onclick="clearFilters()">Clear</button>
+                </div>
+            </div>
+            <div class="actions-row">
+                <div class="result-count" id="resultCount">Loading...</div>
+                <div style="display:flex;gap:8px;">
+                    <button class="btn btn-secondary" onclick="exportFiltered()">📥 Export Filtered CSV</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th onclick="sortBy('FIRM_NAME')" id="th-FIRM_NAME">Firm Name <span class="sort-icon">↕</span></th>
+                            <th onclick="sortBy('EIN')" id="th-EIN">EIN <span class="sort-icon">↕</span></th>
+                            <th onclick="sortBy('STATE')" id="th-STATE">State <span class="sort-icon">↕</span></th>
+                            <th onclick="sortBy('CITY')" id="th-CITY">City <span class="sort-icon">↕</span></th>
+                            <th onclick="sortBy('PLAN_EFFECTIVE_DATE')" id="th-PLAN_EFFECTIVE_DATE">Plan Start Date <span class="sort-icon">↕</span></th>
+                            <th onclick="sortBy('EMPLOYEE_COUNT')" id="th-EMPLOYEE_COUNT">Employees <span class="sort-icon">↕</span></th>
+                            <th onclick="sortBy('PLAN_NAME')" id="th-PLAN_NAME">Plan Name <span class="sort-icon">↕</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+            <div class="pagination" id="pagination">
+                <button onclick="goToPage(1)" id="btnFirst">⏮ First</button>
+                <button onclick="goToPage(currentPage-1)" id="btnPrev">← Prev</button>
+                <span class="page-info" id="pageInfo">Page 1 of 1</span>
+                <button onclick="goToPage(currentPage+1)" id="btnNext">Next →</button>
+                <button onclick="goToPage(totalPages)" id="btnLast">Last ⏭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // State program names
+    const PROGRAMS = {
+        'CA': 'CalSavers', 'IL': 'Secure Choice', 'OR': 'OregonSaves',
+        'MD': 'MarylandSaves', 'CO': 'SecureSavings', 'CT': 'MyCTSavings',
+        'VA': 'RetirePath', 'NJ': 'RetireReady NJ', 'DE': 'EARNS',
+        'ME': 'Maine Savings'
+    };
+
+    let allData = [];
+    let filteredData = [];
+    let currentPage = 1;
+    let totalPages = 1;
+    const PAGE_SIZE = 100;
+    let sortColumn = '';
+    let sortDirection = 'asc';
+    let searchTimeout = null;
+
+    // Try auto-loading from relative path
+    window.addEventListener('DOMContentLoaded', () => {
+        tryAutoLoad();
+    });
+
+    function tryAutoLoad() {
+        const paths = [
+            'data/processed/state_auto_ira_401k_dataset.csv',
+            './data/processed/state_auto_ira_401k_dataset.csv'
+        ];
+
+        let loaded = false;
+
+        // Try fetching the CSV from relative path
+        fetch(paths[0])
+            .then(response => {
+                if (!response.ok) throw new Error('Not found');
+                return response.text();
+            })
+            .then(text => {
+                parseCSV(text);
+            })
+            .catch(() => {
+                // Show file prompt
+                document.getElementById('filePrompt').style.display = 'block';
+            });
+    }
+
+    // File input handler
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        document.getElementById('loadingOverlay').classList.remove('hidden');
+        document.getElementById('loadingText').textContent = `Loading ${file.name}...`;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            parseCSV(e.target.result);
+        };
+        reader.readAsText(file);
+    });
+
+    function parseCSV(text) {
+        document.getElementById('loadingOverlay').classList.remove('hidden');
+        document.getElementById('loadingText').textContent = 'Parsing data...';
+
+        Papa.parse(text, {
+            header: true,
+            skipEmptyLines: true,
+            dynamicTyping: false,
+            complete: function(results) {
+                allData = results.data.map(row => ({
+                    FIRM_NAME: (row.FIRM_NAME || '').trim(),
+                    EIN: (row.EIN || '').trim(),
+                    STATE: (row.STATE || '').trim(),
+                    CITY: (row.CITY || '').trim(),
+                    PLAN_EFFECTIVE_DATE: (row.PLAN_EFFECTIVE_DATE || '').trim(),
+                    EMPLOYEE_COUNT: parseInt(row.EMPLOYEE_COUNT) || 0,
+                    PLAN_NAME: (row.PLAN_NAME || '').trim(),
+                    EMPLOYER_CONTRIBUTION: parseFloat(row.EMPLOYER_CONTRIBUTION) || null,
+                    SOURCE: (row.SOURCE || '').trim(),
+                    _year: (row.PLAN_EFFECTIVE_DATE || '').substring(0, 4)
+                }));
+
+                // Remove empty rows
+                allData = allData.filter(r => r.EIN && r.EIN !== 'nan');
+
+                initializeUI();
+                applyFilters();
+
+                document.getElementById('filePrompt').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').classList.add('hidden');
+                }, 300);
+            }
+        });
+    }
+
+    function initializeUI() {
+        // Header count
+        document.getElementById('headerCount').textContent = `${allData.length.toLocaleString()} firms`;
+
+        // Stats bar
+        const states = {};
+        let totalEmp = 0;
+        let empCount = 0;
+        allData.forEach(r => {
+            states[r.STATE] = (states[r.STATE] || 0) + 1;
+            if (r.EMPLOYEE_COUNT > 0) {
+                totalEmp += r.EMPLOYEE_COUNT;
+                empCount++;
+            }
+        });
+
+        const sortedStates = Object.entries(states).sort((a, b) => b[1] - a[1]);
+
+        let statsHTML = `
+            <div class="stat-card">
+                <div class="stat-value">${allData.length.toLocaleString()}</div>
+                <div class="stat-label">Total Firms</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">${Object.keys(states).length}</div>
+                <div class="stat-label">States</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">${totalEmp.toLocaleString()}</div>
+                <div class="stat-label">Total Employees</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">${empCount > 0 ? Math.round(totalEmp / empCount) : 0}</div>
+                <div class="stat-label">Avg Employees</div>
+            </div>
+        `;
+        // Top 3 states
+        sortedStates.slice(0, 3).forEach(([st, cnt]) => {
+            statsHTML += `
+                <div class="stat-card">
+                    <div class="stat-value">${cnt.toLocaleString()}</div>
+                    <div class="stat-label">${st} - ${PROGRAMS[st] || st}</div>
+                </div>
+            `;
+        });
+        document.getElementById('statsBar').innerHTML = statsHTML;
+
+        // State filter
+        const stateSelect = document.getElementById('stateFilter');
+        sortedStates.forEach(([st, cnt]) => {
+            const opt = document.createElement('option');
+            opt.value = st;
+            opt.textContent = `${st} — ${PROGRAMS[st] || st} (${cnt.toLocaleString()})`;
+            stateSelect.appendChild(opt);
+        });
+
+        // Year filter
+        const years = {};
+        allData.forEach(r => {
+            if (r._year && r._year.length === 4) years[r._year] = (years[r._year] || 0) + 1;
+        });
+        const yearSelect = document.getElementById('yearFilter');
+        Object.keys(years).sort().forEach(yr => {
+            const opt = document.createElement('option');
+            opt.value = yr;
+            opt.textContent = `${yr} (${years[yr].toLocaleString()})`;
+            yearSelect.appendChild(opt);
+        });
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', debounceFilter);
+        document.getElementById('stateFilter').addEventListener('change', applyFilters);
+        document.getElementById('yearFilter').addEventListener('change', applyFilters);
+        document.getElementById('minEmpFilter').addEventListener('input', debounceFilter);
+        document.getElementById('maxEmpFilter').addEventListener('input', debounceFilter);
+    }
+
+    function debounceFilter() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(applyFilters, 200);
+    }
+
+    function applyFilters() {
+        const search = document.getElementById('searchInput').value.toLowerCase().trim();
+        const state = document.getElementById('stateFilter').value;
+        const year = document.getElementById('yearFilter').value;
+        const minEmp = parseInt(document.getElementById('minEmpFilter').value) || 0;
+        const maxEmp = parseInt(document.getElementById('maxEmpFilter').value) || Infinity;
+
+        filteredData = allData.filter(row => {
+            if (state && row.STATE !== state) return false;
+            if (year && row._year !== year) return false;
+            if (row.EMPLOYEE_COUNT < minEmp) return false;
+            if (row.EMPLOYEE_COUNT > maxEmp) return false;
+            if (search) {
+                const haystack = `${row.FIRM_NAME} ${row.CITY} ${row.EIN} ${row.PLAN_NAME}`.toLowerCase();
+                // Support multi-word search (all terms must match)
+                const terms = search.split(/\s+/);
+                if (!terms.every(term => haystack.includes(term))) return false;
+            }
+            return true;
+        });
+
+        // Apply sort
+        if (sortColumn) {
+            filteredData.sort((a, b) => {
+                let va = a[sortColumn];
+                let vb = b[sortColumn];
+                if (sortColumn === 'EMPLOYEE_COUNT') {
+                    va = va || 0;
+                    vb = vb || 0;
+                    return sortDirection === 'asc' ? va - vb : vb - va;
+                }
+                va = (va || '').toString().toLowerCase();
+                vb = (vb || '').toString().toLowerCase();
+                if (va < vb) return sortDirection === 'asc' ? -1 : 1;
+                if (va > vb) return sortDirection === 'asc' ? 1 : -1;
+                return 0;
+            });
+        }
+
+        currentPage = 1;
+        totalPages = Math.max(1, Math.ceil(filteredData.length / PAGE_SIZE));
+        renderTable();
+        updateResultCount();
+    }
+
+    function renderTable() {
+        const tbody = document.getElementById('tableBody');
+        const start = (currentPage - 1) * PAGE_SIZE;
+        const end = Math.min(start + PAGE_SIZE, filteredData.length);
+        const pageData = filteredData.slice(start, end);
+
+        if (pageData.length === 0) {
+            tbody.innerHTML = `
+                <tr><td colspan="7">
+                    <div class="empty-state">
+                        <h3>No firms found</h3>
+                        <p>Try adjusting your search or filters.</p>
+                    </div>
+                </td></tr>
+            `;
+        } else {
+            tbody.innerHTML = pageData.map(row => `
+                <tr>
+                    <td class="firm-name" title="${escapeHtml(row.FIRM_NAME)}">${escapeHtml(row.FIRM_NAME || '—')}</td>
+                    <td class="ein-cell">${formatEIN(row.EIN)}</td>
+                    <td><span class="state-badge">${row.STATE}</span></td>
+                    <td>${escapeHtml(row.CITY || '—')}</td>
+                    <td class="date-cell">${formatDate(row.PLAN_EFFECTIVE_DATE)}</td>
+                    <td class="number-cell">${row.EMPLOYEE_COUNT > 0 ? row.EMPLOYEE_COUNT.toLocaleString() : '—'}</td>
+                    <td title="${escapeHtml(row.PLAN_NAME)}" style="max-width:250px;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(row.PLAN_NAME || '—')}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Pagination
+        document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+        document.getElementById('btnFirst').disabled = currentPage === 1;
+        document.getElementById('btnPrev').disabled = currentPage === 1;
+        document.getElementById('btnNext').disabled = currentPage === totalPages;
+        document.getElementById('btnLast').disabled = currentPage === totalPages;
+    }
+
+    function updateResultCount() {
+        const el = document.getElementById('resultCount');
+        if (filteredData.length === allData.length) {
+            el.innerHTML = `Showing all <strong>${allData.length.toLocaleString()}</strong> firms`;
+        } else {
+            el.innerHTML = `<strong>${filteredData.length.toLocaleString()}</strong> of ${allData.length.toLocaleString()} firms match your filters`;
+        }
+    }
+
+    function sortBy(column) {
+        if (sortColumn === column) {
+            sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            sortColumn = column;
+            sortDirection = 'asc';
+        }
+
+        // Update UI
+        document.querySelectorAll('th').forEach(th => th.classList.remove('sorted'));
+        const th = document.getElementById(`th-${column}`);
+        if (th) {
+            th.classList.add('sorted');
+            th.querySelector('.sort-icon').textContent = sortDirection === 'asc' ? '↑' : '↓';
+        }
+
+        applyFilters();
+    }
+
+    function goToPage(page) {
+        if (page < 1 || page > totalPages) return;
+        currentPage = page;
+        renderTable();
+        // Scroll to top of table
+        document.querySelector('.table-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function clearFilters() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('stateFilter').value = '';
+        document.getElementById('yearFilter').value = '';
+        document.getElementById('minEmpFilter').value = '';
+        document.getElementById('maxEmpFilter').value = '';
+        sortColumn = '';
+        sortDirection = 'asc';
+        document.querySelectorAll('th').forEach(th => {
+            th.classList.remove('sorted');
+            th.querySelector('.sort-icon').textContent = '↕';
+        });
+        applyFilters();
+    }
+
+    function exportFiltered() {
+        const headers = ['FIRM_NAME', 'EIN', 'STATE', 'CITY', 'PLAN_EFFECTIVE_DATE', 'EMPLOYEE_COUNT', 'PLAN_NAME'];
+        const csv = [headers.join(',')];
+        filteredData.forEach(row => {
+            csv.push(headers.map(h => {
+                let val = row[h] || '';
+                val = val.toString().replace(/"/g, '""');
+                return `"${val}"`;
+            }).join(','));
+        });
+
+        const blob = new Blob([csv.join('\n')], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `auto_ira_filtered_${new Date().toISOString().slice(0,10)}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function formatEIN(ein) {
+        if (!ein || ein.length < 9) return ein || '—';
+        return ein.substring(0, 2) + '-' + ein.substring(2);
+    }
+
+    function formatDate(dateStr) {
+        if (!dateStr) return '—';
+        // Handle ISO format or other formats
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return dateStr;
+        return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    // Keyboard shortcut: focus search on /
+    document.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+            e.preventDefault();
+            document.getElementById('searchInput').focus();
+        }
+        if (e.key === 'Escape') {
+            document.getElementById('searchInput').blur();
+        }
+    });
+</script>
+
+</body>
+</html>

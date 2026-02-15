@@ -1,0 +1,119 @@
+
+● All California records have plan effective dates after
+  November 1, 2018:
+  Firm Name: WAYB, INC.
+  EIN: 820816311
+  City: S PASADENA
+  Plan Effective Date: 2018-11-04
+  Employees: 16
+  ────────────────────────────────────────
+  Firm Name: TESSERACT SPACE, INC.
+  EIN: 821538426
+  City: LIVERMORE
+  Plan Effective Date: 2018-11-04
+  Employees: 8
+  ────────────────────────────────────────
+  Firm Name: ADVANCED COMMUNICATION PRODUCTS
+  EIN: 463833062
+  City: FREMONT
+  Plan Effective Date: 2018-11-04
+  Employees: 3
+  ────────────────────────────────────────
+  Firm Name: CA COMMUNITY ACTION PARTNERSHIP ASSOC
+  EIN: 461434482
+  City: SACRAMENTO
+  Plan Effective Date: 2018-11-04
+  Employees: 7
+  ────────────────────────────────────────
+  Firm Name: ARCADIA RADIOLOGY MEDICAL GROUP
+  EIN: 952635185
+  City: ARCADIA
+  Plan Effective Date: 2018-11-05
+  Employees: 6
+  CA Mandate Date: November 1, 2018
+  Earliest CA plan in dataset: November 4, 2018 ✓
+
+  The filter is working correctly - all California plans were
+  established after the state's auto-IRA mandate took effect.
+
+❯ Can you confirm all 112,142 records have
+  TYPE_PENSION_BNFT_CODE containing "2J"?
+
+  Bash(python -c "
+      import pandas as pd…)
+  ⎿  Running… (15s · timeout 5m)
+     ctrl+b to run in background
+
+❯ Can you confirm all 112,142 records have
+  TYPE_PENSION_BNFT_CODE containing "2J"?
+
+● Bash(python -c "
+      import pandas as pd…)
+  ⎿  Total records with 2J in target states: 1,660,483
+     Records containing "2J": 1,660,483
+     Percentage: 100.00%
+     … +12 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● Confirmed: 100% of filtered records contain "2J"
+  ┌────────────────────────────────────────┬───────────┐
+  │                 Metric                 │   Value   │
+  ├────────────────────────────────────────┼───────────┤
+  │ Total records with 2J in target states │ 1,660,483 │
+  ├────────────────────────────────────────┼───────────┤
+  │ Records containing "2J"                │ 1,660,483 │
+  ├────────────────────────────────────────┼───────────┤
+  │ Percentage                             │ 100.00%   │
+  └────────────────────────────────────────┴───────────┘
+  The pension benefit codes are composite strings where "2J"
+  appears alongside other benefit type codes:
+  ┌──────────────────┬─────────┐
+  │   Pension Code   │  Count  │
+  ├──────────────────┼─────────┤
+  │ 2E2F2G2J2K2T3D   │ 308,648 │
+  ├──────────────────┼─────────┤
+  │ 2E2F2G2J2K2S2T3D │ 167,569 │
+  ├──────────────────┼─────────┤
+  │ 2A2E2F2G2J2K2T3D │ 93,745  │
+  ├──────────────────┼─────────┤
+  │ 2E2F2G2J2T3D     │ 84,394  │
+  ├──────────────────┼─────────┤
+  │ 2E2F2G2J2S2T3D   │ 48,044  │
+  └──────────────────┴─────────┘
+  The code "2J" specifically indicates a 401(k) feature. Plans
+  often have multiple benefit types (e.g., 2E=money purchase,
+  2F=profit sharing, 2G=stock bonus, 2J=401k, 2K=ESOP, etc.).
+
+  The final 112,142 unique firms are a subset of these 1,660,483
+   records (after mandate date filtering and EIN deduplication),
+   so all output records are confirmed to be 401(k) plans.
+
+● Bash(python -c "
+      import pandas as pd…)
+  ⎿  TYPE_PLAN_ENTITY_CD Distribution:
+     ==================================================
+     Code 1 (Single-employer): 1,643,712
+     … +8 lines (ctrl+o to expand)
+  ⎿  (timeout 5m)
+
+● Yes, multi-employer plans were filtered out.
+  ┌─────────────┬───────────────────┬───────────┬────────────┐
+  │ Entity Code │       Type        │   Count   │   Status   │
+  ├─────────────┼───────────────────┼───────────┼────────────┤
+  │ 1           │ Single-employer   │ 1,643,712 │ ✓ KEPT     │
+  ├─────────────┼───────────────────┼───────────┼────────────┤
+  │ 2           │ Multi-employer    │ 16,421    │ ✗ EXCLUDED │
+  ├─────────────┼───────────────────┼───────────┼────────────┤
+  │ 3           │ Multiple-employer │ 345       │ ✗ EXCLUDED │
+  ├─────────────┼───────────────────┼───────────┼────────────┤
+  │ -           │ Other/Missing     │ 2         │ ✗ EXCLUDED │
+  └─────────────┴───────────────────┴───────────┴────────────┘
+  Summary:
+  - Excluded: 16,768 multi-employer/multiple-employer plans
+  - Kept: 1,643,712 single-employer plans (99.0%)
+
+  The filter uses TYPE_PLAN_ENTITY_CD = 1 to keep only
+  single-employer plans, which represent firms that
+  independently established their own 401(k) plans rather than
+  participating in pooled employer arrangements.
+

@@ -1,0 +1,11 @@
+# Raw Form 5500 data (too large for GitHub)
+form5500-raw-data/
+
+# Temp/system files
+*.pyc
+__pycache__/
+desktop.ini
+audit_results.txt
+
+# Large binaries
+*.dmg
