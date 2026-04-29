@@ -1,18 +1,56 @@
-# SEC EDGAR Match-Formula Pilot — Summary
+# Match-Formula Pilot — Summary
 
-**Date:** 2026-04-29
-**Pipeline:** `analysis/edgar_match_pilot.py`
-**Output:** `deliverables/match_formula_tracker.csv` (50 rows)
+**Date:** 2026-04-29 (updated 2026-04-29 with BrightScope assessment and pivot to industry benchmarks)
+**Pipelines:** `analysis/edgar_match_pilot.py` (EDGAR pilot, original); benchmark reports under `analysis/benchmark_sources/` (industry-benchmark pivot)
+**Outputs:** `deliverables/match_formula_tracker.csv` (50 rows from EDGAR pilot); `deliverables/match_formula_industry_benchmarks.md` (industry benchmarks)
 **Source dataset:** `data/v2-conservative/state_auto_ira_401k_dataset.csv`
 
-## Empirical finding
+## Status
+
+| Pilot phase | Source | Status | Decision |
+|---|---|---|---|
+| Phase 1 | SEC EDGAR | Run, **null** finding | EDGAR confirmed wrong source for this population |
+| Phase 2 | BrightScope | Access investigated, **not accessible** | See `methodology/brightscope_access_assessment.md` |
+| Phase 3 | Vanguard + PSCA + ICI/BrightScope (aggregate) | Delivered as benchmark substitute | See `deliverables/match_formula_industry_benchmarks.md` |
+
+The deliverable for "match formula data" is now a two-source product: (1) the EDGAR tracker CSV captures the pilot's null finding for documentation; (2) the industry benchmarks markdown captures the aggregate context that substitutes for unobtainable firm-level data. Neither is firm-level data on the State Auto-IRA dataset specifically — the project does not yet have that, and getting it requires either parsing Form 5500 attachment PDFs or licensing an enterprise dataset, both out of scope for this pilot.
+
+## Phase 1: EDGAR null finding
 
 Of the 50 mandate-induced 401(k) plan sponsors with the largest employee counts in the v2-conservative dataset, **zero are confidently identified as public companies in SEC EDGAR's ticker list**. 17 candidates produced low-confidence single-token name matches that require manual review (most appear to be false positives — e.g., SIERRA SPACE CORPORATION matched to SIERRA BANCORP; the firms share only the leading word "SIERRA"). The remaining 33 are not in EDGAR's ticker list at all and presumably correspond to private firms.
 
-**This is itself a substantive finding for the project:** mandate-induced 401(k) plans are overwhelmingly established by private companies, not by publicly-traded employers that could already file SEC documents. EDGAR is therefore unlikely to be a productive source of match-formula language for this population of firms. To get match-formula evidence at scale, the project would need to either:
-- Pivot to Form 5500 attachments (Schedule SB, Schedule R, or summary plan descriptions filed as PDF)
-- Rely on third-party plan-data vendors (Brightscope, Form5500.com)
-- Sample by industry rather than by employee count
+**Substantive interpretation:** mandate-induced 401(k) plans are overwhelmingly established by private companies, not by publicly-traded employers that could already file SEC documents. This is consistent with the firm-level descriptive analysis (`analysis/firm_level_analysis.md`) finding that 62% of dataset firms are solo or micro (0-9 participants) and only 0.7% are large (250+ participants); public firms cluster in the latter group, and the latter group is too small a slice of the dataset to drive aggregate findings. **EDGAR is therefore not a productive source of match-formula language for this population.**
+
+## Phase 2: BrightScope access investigation
+
+Investigated 2026-04-29. Conclusion: **not accessible to this project**.
+
+- BrightScope was acquired by ISS in 2016; legacy public site (brightscope.com/401k-rating/) returns HTTP 404
+- Data now licensed only via ISS Market Intelligence's MarketPro Retirement product, sales-led enterprise contracts only
+- No public API; no published pricing; no academic / research tier
+- Even if licensed, redistribution restrictions would conflict with publishing firm-level match formulas in policy memos
+
+Full memo: `methodology/brightscope_access_assessment.md`.
+
+## Phase 3: Pivot to industry benchmarks
+
+In place of firm-level data, the project now has aggregate match-formula benchmarks from three credible sources:
+
+1. **Vanguard *How America Saves 2025*** — 2024 plan-year data on ~5M Vanguard recordkept participants. Most common formula: 50% on first 6% of pay (13% of plans). Average promised match: 4.6% of pay; median 4.0%.
+2. **PSCA 68th Annual Survey of 401(k) Plans** — 2024 plan-year self-reports from 755 plans. 81.3% of plans offer a match; average employer contribution 4.8% of pay; 44.1% offer immediate vesting.
+3. **ICI/BrightScope DC Plan Profile** — 2020 plan-year tabulations of ~65,000 large 401(k) plans (≥100 participants). Single most common simple-match formula: 50% on first 6% of pay (21.9% of large plans with simple matches).
+
+Full benchmarks: `deliverables/match_formula_industry_benchmarks.md`.
+
+**These are aggregate industry benchmarks, not firm-specific data.** They describe what match formulas look like in the broader 401(k) market — not the specific match formulas of the firms in the State Auto-IRA dataset, most of which are too small to appear in any of these source samples (all three skew toward larger plans). The benchmarks support claims about "what a typical employer 401(k) match looks like" but do **not** support claims like "mandate-induced firms offered richer matches than other small firms" or "X% of mandate-induced plans use safe-harbor designs." Those would require firm-specific data the project does not currently have.
+
+## What we'd want next
+
+The realistic path to firm-level match-formula data at scale, if the project chose to pursue it:
+
+- **Form 5500 attachment PDFs.** Plan sponsors file Summary Plan Descriptions and other plan-document attachments alongside Form 5500. These are stored on EFAST2 and contain the formal match formula text. Parsing them at scale (~106k attachments) is itself a multi-week project but is the only free firm-level source.
+- **Industry-stratified sampling.** Rather than sampling the 50 largest firms by employee count (which yielded 0 public firms), sample 25 firms per industry sector. Some industries (financial services, professional services, tech) have a much higher public-company share. This would still yield few public matches in absolute numbers but might produce a non-zero result for specific industries worth pulling out.
+- **Form5500.com cross-reference.** Free public profile pages with some plan-design fields, but match formula is rarely captured at firm level there either.
 
 ## Pipeline behavior (validated)
 
