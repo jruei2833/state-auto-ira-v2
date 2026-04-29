@@ -1,1 +1,9 @@
-form5500-raw-data/ 
+form5500-raw-data/
+
+# Stray notes from unrelated work (federal regulation analysis) that
+# accidentally landed in methodology/. Ignored to keep `git status` clean.
+methodology/04 exp.txt
+methodology/MAC 2625-1-1.17 Is not defined as b.txt
+
+# Generated docx is a derived artifact; the markdown is the source of truth
+deliverables/stakeholder_status_update.docx
