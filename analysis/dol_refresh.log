@@ -1,0 +1,19 @@
+DOL Form 5500 refresh, pull date 2026-04-29
+  backed up C:\Users\JanyjorRuei\Documents\GITHUB\state-auto-ira-v2\form5500-raw-data\form5500\f_5500_2024_all.csv -> C:\Users\JanyjorRuei\Documents\GITHUB\state-auto-ira-v2\form5500-raw-data\pre_refresh_backup_2026_04\f_5500_2024_all.csv
+  backed up C:\Users\JanyjorRuei\Documents\GITHUB\state-auto-ira-v2\form5500-raw-data\form5500sf\f_5500_sf_2024_all.csv -> C:\Users\JanyjorRuei\Documents\GITHUB\state-auto-ira-v2\form5500-raw-data\pre_refresh_backup_2026_04\f_5500_sf_2024_all.csv
+  extracted F_5500_2024_All.zip -> C:\Users\JanyjorRuei\Documents\GITHUB\state-auto-ira-v2\form5500-raw-data\form5500\f_5500_2024_all.csv
+  extracted F_5500_SF_2024_All.zip -> C:\Users\JanyjorRuei\Documents\GITHUB\state-auto-ira-v2\form5500-raw-data\form5500sf\f_5500_sf_2024_all.csv
+  extracted F_5500_2025_All.zip -> C:\Users\JanyjorRuei\Documents\GITHUB\state-auto-ira-v2\form5500-raw-data\form5500\f_5500_2025_all.csv
+  extracted F_5500_SF_2025_All.zip -> C:\Users\JanyjorRuei\Documents\GITHUB\state-auto-ira-v2\form5500-raw-data\form5500sf\f_5500_sf_2025_all.csv
+
+Counting filter stages for each refreshed file...
+  reading f_5500_2024_all.csv...
+  F_5500_2024_All.zip: {'raw': 221602, 'after_2J': 98907, 'after_single': 96054, 'after_state': 29168, 'after_v1_date': 3576, 'after_v2_date': 3127}
+  reading f_5500_sf_2024_all.csv...
+  F_5500_SF_2024_All.zip: {'raw': 792989, 'after_2J': 691255, 'after_single': 689174, 'after_state': 255713, 'after_v1_date': 99959, 'after_v2_date': 94057}
+  reading f_5500_2025_all.csv...
+  F_5500_2025_All.zip: {'raw': 5294, 'after_2J': 1883, 'after_single': 1847, 'after_state': 521, 'after_v1_date': 123, 'after_v2_date': 113}
+  reading f_5500_sf_2025_all.csv...
+  F_5500_SF_2025_All.zip: {'raw': 32761, 'after_2J': 28620, 'after_single': 28551, 'after_state': 8834, 'after_v1_date': 2109, 'after_v2_date': 1953}
+
+Updated C:\Users\JanyjorRuei\Documents\GITHUB\state-auto-ira-v2\methodology\source_provenance_log.csv

@@ -1,6 +1,6 @@
 # Methodology: State Auto-IRA 401(k) Dataset
 
-Generated: 2026-02-15 14:48
+Generated: 2026-04-29 14:20
 
 ## Data Source
 DOL Form 5500 bulk datasets (2017-2024) from EFAST2 system.
