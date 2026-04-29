@@ -1,0 +1,7 @@
+panel,primary_spec,primary_coef,primary_se,primary_ci_lo,primary_ci_hi,primary_n_obs,primary_outcome,never_spec,never_coef,never_se,never_ci_lo,never_ci_hi,never_n_obs,never_outcome,twfe_spec,twfe_outcome,twfe_coef,twfe_se,twfe_ci_lo,twfe_ci_hi,twfe_pval,twfe_n_obs
+v1_inclusive,CS: not-yet-treated (primary),2.3664056849550126,0.5098784521777997,1.5349015617398132,3.1979098081702118,,rate_per_1000_estabs,,,,,,,,,,,,,,,
+v1_inclusive,,,,,,,,CS: never-treated,2.41608923959322,0.49424506248478367,1.5522473729963298,3.27993110619011,,rate_per_1000_estabs,,,,,,,,
+v1_inclusive,,,,,,,,,,,,,,,TWFE (biased — contrast only),rate_per_1000_estabs,3.0277872770971994,0.7395820838472351,1.5782330291455362,4.477341525048862,4.2414715893122985e-05,408.0
+v2_conservative,CS: not-yet-treated (primary),2.3716578246513285,0.532214995823648,1.509486068327166,3.233829580975491,,rate_per_1000_estabs,,,,,,,,,,,,,,,
+v2_conservative,,,,,,,,CS: never-treated,2.4248100673190724,0.5142391668020163,1.5255841721743935,3.3240359624637517,,rate_per_1000_estabs,,,,,,,,
+v2_conservative,,,,,,,,,,,,,,,TWFE (biased — contrast only),rate_per_1000_estabs,3.0748725444675777,0.6976377166523036,1.7075277455723037,4.442217343362852,1.045468680549479e-05,408.0

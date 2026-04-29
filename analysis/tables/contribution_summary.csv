@@ -1,0 +1,11 @@
+metric,value
+n_firms_with_contrib_data,3649.0
+pct_of_full_dataset,3.42
+n_zero_contrib,2268.0
+pct_zero_contrib,62.15
+median_total_contrib,0.0
+mean_total_contrib,116240.48
+p75_total_contrib,10964.0
+p95_total_contrib,244045.79999999984
+median_per_employee,0.0
+mean_per_employee,4429.78

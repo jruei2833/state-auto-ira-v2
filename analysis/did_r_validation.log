@@ -1,0 +1,167 @@
+did package version: 2.3.0
+Loading panel: analysis/did_panel_v2_conservative.csv
+
+Cohort distribution:
+   cohort_num states
+        <num>  <int>
+1:          0     41
+2:       2019      1
+3:       2023      2
+4:       2022      2
+5:       2024      3
+6:       2018      1
+7:       2017      1
+Warning messages:
+1: In pre_process_did(yname = yname, tname = tname, idname = idname,  :
+  Dropped 1 units that were already treated in the first period.
+2: In pre_process_did(yname = yname, tname = tname, idname = idname,  :
+  Be aware that there are some small groups in your dataset.
+  Check groups: 2018,2019,2022,2023,2024.
+3: In att_gt(yname = "rate_per_1000_estabs", tname = "year", idname = "state_id",  :
+  Not returning pre-test Wald statistic due to singular covariance matrix
+
+--- raw group-time ATT(g,t) ---
+
+Call:
+att_gt(yname = "rate_per_1000_estabs", tname = "year", idname = "state_id", 
+    gname = "cohort_num", data = dt, panel = TRUE, allow_unbalanced_panel = TRUE, 
+    control_group = "notyettreated", bstrap = TRUE, cband = TRUE, 
+    biters = 999, est_method = "reg", faster_mode = FALSE)
+
+Reference: Callaway, Brantly and Pedro H.C. Sant'Anna.  "Difference-in-Differences with Multiple Time Periods." Journal of Econometrics, Vol. 225, No. 2, pp. 200-230, 2021. <https://doi.org/10.1016/j.jeconom.2020.12.001>, <https://arxiv.org/abs/1803.09015> 
+
+Group-Time Average Treatment Effects:
+ Group Time ATT(g,t) Std. Error [95% Simult.  Conf. Band]  
+  2018 2018  -0.2057     0.0587       -0.3655     -0.0458 *
+  2018 2019   0.8219     0.0812        0.6008      1.0429 *
+  2018 2020  -0.0008     0.1057       -0.2884      0.2869  
+  2018 2021  -0.0604     0.1157       -0.3752      0.2544  
+  2018 2022   0.5147     0.1939       -0.0130      1.0423  
+  2018 2023   3.6071     0.1860        3.1007      4.1134 *
+  2018 2024   2.4053     0.1840        1.9044      2.9062 *
+  2019 2018   0.3220     0.0625        0.1520      0.4921 *
+  2019 2019   0.1390     0.0513       -0.0005      0.2786  
+  2019 2020   0.7835     0.0845        0.5535      1.0136 *
+  2019 2021   1.2639     0.1089        0.9674      1.5604 *
+  2019 2022  11.1052     0.1781       10.6203     11.5900 *
+  2019 2023   2.8387     0.1818        2.3440      3.3335 *
+  2019 2024   3.0813     0.1746        2.6060      3.5566 *
+  2022 2018  -0.3208     0.0768       -0.5298     -0.1117 *
+  2022 2019   0.4561     0.1176        0.1360      0.7763 *
+  2022 2020  -0.4786     0.1234       -0.8147     -0.1426 *
+  2022 2021   0.1289     0.4101       -0.9873      1.2451  
+  2022 2022   0.9297     0.1274        0.5829      1.2765 *
+  2022 2023   4.8862     1.7035        0.2495      9.5230 *
+  2022 2024   1.9328     0.4733        0.6446      3.2211 *
+  2023 2018   0.1086     0.0778       -0.1030      0.3203  
+  2023 2019   0.3949     0.1493       -0.0115      0.8013  
+  2023 2020  -0.1864     0.1155       -0.5007      0.1280  
+  2023 2021   0.1476     0.0837       -0.0803      0.3755  
+  2023 2022   0.6519     0.8722       -1.7221      3.0260  
+  2023 2023   4.1984     3.8324       -6.2333     14.6300  
+  2023 2024   0.9563     0.3502        0.0031      1.9096 *
+  2024 2018  -0.0069     0.3113       -0.8542      0.8403  
+  2024 2019   0.0425     0.3306       -0.8572      0.9423  
+  2024 2020   0.4546     0.7945       -1.7080      2.6173  
+  2024 2021   0.4159     0.3053       -0.4150      1.2468  
+  2024 2022   1.1708     1.0247       -1.6184      3.9601  
+  2024 2023   0.0276     0.6720       -1.8016      1.8568  
+  2024 2024   3.1875     1.5886       -1.1367      7.5117  
+---
+Signif. codes: `*' confidence band does not cover 0
+
+Control Group:  Not Yet Treated,  Anticipation Periods:  0
+Estimation Method:  Outcome Regression
+NULL
+
+--- simple aggregation (overall ATT) ---
+
+Call:
+aggte(MP = fit, type = "simple", bstrap = TRUE, biters = 999, 
+    cband = TRUE)
+
+Reference: Callaway, Brantly and Pedro H.C. Sant'Anna.  "Difference-in-Differences with Multiple Time Periods." Journal of Econometrics, Vol. 225, No. 2, pp. 200-230, 2021. <https://doi.org/10.1016/j.jeconom.2020.12.001>, <https://arxiv.org/abs/1803.09015> 
+
+
+    ATT    Std. Error     [ 95%  Conf. Int.]  
+ 2.3717        0.5243     1.3441      3.3992 *
+
+
+---
+Signif. codes: `*' confidence band does not cover 0
+
+Control Group:  Not Yet Treated,  Anticipation Periods:  0
+Estimation Method:  Outcome Regression
+NULL
+
+--- dynamic / event-time aggregation ---
+
+Call:
+aggte(MP = fit, type = "dynamic", min_e = -6, max_e = 6, bstrap = TRUE, 
+    biters = 999, cband = TRUE)
+
+Reference: Callaway, Brantly and Pedro H.C. Sant'Anna.  "Difference-in-Differences with Multiple Time Periods." Journal of Econometrics, Vol. 225, No. 2, pp. 200-230, 2021. <https://doi.org/10.1016/j.jeconom.2020.12.001>, <https://arxiv.org/abs/1803.09015> 
+
+
+Overall summary of ATT's based on event-study/dynamic aggregation:  
+    ATT    Std. Error     [ 95%  Conf. Int.]  
+ 2.6629         0.699      1.293      4.0329 *
+
+
+Dynamic Effects:
+ Event time Estimate Std. Error [95% Simult.  Conf. Band]  
+         -6  -0.0069     0.3179       -0.7268      0.7130  
+         -5   0.0690     0.1803       -0.3393      0.4772  
+         -4   0.2160     0.3690       -0.6196      1.0516  
+         -3   0.2553     0.1978       -0.1927      0.7033  
+         -2   0.4072     0.5910       -0.9313      1.7457  
+         -1   0.2458     0.2960       -0.4245      0.9161  
+          0   2.1947     0.8809        0.1997      4.1896 *
+          1   2.2151     1.2349       -0.5815      5.0117  
+          2   1.2822     0.5149        0.1160      2.4484 *
+          3   5.5224     4.1911       -3.9692     15.0140  
+          4   1.6767     1.2871       -1.2382      4.5916  
+          5   3.3442     0.2481        2.7824      3.9060 *
+          6   2.4053     0.1916        1.9715      2.8391 *
+---
+Signif. codes: `*' confidence band does not cover 0
+
+Control Group:  Not Yet Treated,  Anticipation Periods:  0
+Estimation Method:  Outcome Regression
+NULL
+
+--- cohort aggregation ---
+
+Call:
+aggte(MP = fit, type = "group", bstrap = TRUE, biters = 999, 
+    cband = TRUE)
+
+Reference: Callaway, Brantly and Pedro H.C. Sant'Anna.  "Difference-in-Differences with Multiple Time Periods." Journal of Econometrics, Vol. 225, No. 2, pp. 200-230, 2021. <https://doi.org/10.1016/j.jeconom.2020.12.001>, <https://arxiv.org/abs/1803.09015> 
+
+
+Overall summary of ATT's based on group/cohort aggregation:  
+    ATT    Std. Error     [ 95%  Conf. Int.]  
+ 2.6774        0.6011     1.4992      3.8556 *
+
+
+Group Effects:
+ Group Estimate Std. Error [95% Simult.  Conf. Band]  
+  2018   1.0117     0.1011        0.6322      1.3912 *
+  2019   3.2019     0.0970        2.8378      3.5661 *
+  2022   2.5829     0.5981        0.3380      4.8278 *
+  2023   2.5774     0.9153       -0.8579      6.0126  
+  2024   3.1875     1.4778       -2.3592      8.7342  
+---
+Signif. codes: `*' confidence band does not cover 0
+
+Control Group:  Not Yet Treated,  Anticipation Periods:  0
+Estimation Method:  Outcome Regression
+NULL
+
+========================================
+R simple ATT: 2.3717 (SE 0.5243)
+Outputs written:
+  analysis/did_r_simple_v2_conservative.csv
+  analysis/did_r_event_v2_conservative.csv
+  analysis/did_r_cohort_v2_conservative.csv
+========================================
