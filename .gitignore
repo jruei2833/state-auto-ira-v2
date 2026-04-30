@@ -5,5 +5,6 @@ form5500-raw-data/
 methodology/04 exp.txt
 methodology/MAC 2625-1-1.17 Is not defined as b.txt
 
-# Generated docx is a derived artifact; the markdown is the source of truth
+# Generated docx files are derived artifacts; the markdown is the source of truth
 deliverables/stakeholder_status_update.docx
+deliverables/calsavers_cpra_request.docx

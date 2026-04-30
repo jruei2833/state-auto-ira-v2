@@ -2,7 +2,7 @@
 
 **Date:** 2026-04-29
 **Decision requested from:** project owner
-**Status:** recommendation only — work has NOT been started
+**Status (updated 2026-04-29):** project owner approved drafting; CPRA letter has been drafted at `deliverables/calsavers_cpra_request.md`. Awaiting send-off review (see send-off checklist at the bottom of the letter file). Letter has NOT been sent.
 
 The project board has five candidate workstreams remaining from the original plan. This memo evaluates them and recommends the highest-value next action, with reasoning. The recommendation is for the project owner to confirm or override before any work begins.
 
@@ -109,3 +109,24 @@ This is essentially editing the existing memos into a continuous narrative. Usef
 - **Decision on parallel work during the wait.** Whether to also start Sprint 2 of qualitative evidence and/or the t=4 noise investigation while the CPRA is in flight, or sequence them.
 
 I am explicitly NOT starting the request letter without this confirmation, per the prompt instruction "bring back to me before doing." Awaiting decision.
+
+---
+
+## Update — 2026-04-29: letter drafted
+
+The project owner approved drafting. The CPRA request letter is at [`deliverables/calsavers_cpra_request.md`](calsavers_cpra_request.md) (markdown source) and [`deliverables/calsavers_cpra_request.docx`](calsavers_cpra_request.docx) (derived; regenerate via `make cpra-letter` or `python scripts/build_doc.py deliverables/calsavers_cpra_request.md deliverables/calsavers_cpra_request.docx`).
+
+The letter is **drafted and saved, but has NOT been sent.** Per the send-off checklist at the end of the letter file, the project owner should:
+
+1. Confirm the AFPI letterhead address and main phone number against current institutional standards (drafted from the public AFPI website).
+2. Confirm the signatory (Janyjor or someone else with formal records-request authority).
+3. Email a PDF/Word copy to `CalSavers@sto.ca.gov` with subject "CPRA Request — CalSavers Exemption-Filing Records".
+4. Optionally CC AFPI legal/communications.
+5. Optionally mail a paper copy to P.O. Box 942809, Sacramento, CA 94209-0001.
+6. Log the send date and calendar reminders (14-day acknowledgment; 60-day production).
+
+Outstanding decisions for the project owner (not blocking the send):
+
+- **Sprint 2 of qualitative evidence (CT/MD/CO/VA/ME/DE/NJ coverage):** start in parallel during the CPRA wait, or sequence after?
+- **t=4 noise investigation in the DiD event study:** start in parallel, or wait for CPRA result?
+- **Census CBP 2024 release watch:** passive — no decision needed; will be triggered when Census releases.

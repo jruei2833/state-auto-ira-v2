@@ -18,6 +18,7 @@ The February 2026 report (`deliverables/State_AutoIRA_Project_Report.md`) closed
 - **Match-formula evidence pivoted from firm-level to industry benchmarks.** SEC EDGAR pilot returned a null finding (firms in the dataset are predominantly private); BrightScope is enterprise-licensed only and not accessible. Pivoted to Vanguard / PSCA / ICI/BrightScope aggregate benchmarks. See [match formula pilot summary](match_formula_pilot_summary.md).
 - **DOL Form 5500 data refreshed (Apr 2026).** Re-pull added +400 firms in v2-conservative; late-treatment states (ME, DE, NJ) grew by ~5%. The DiD is not yet re-run on the refreshed panel — pending decision based on the [delta report](../methodology/dol_refresh_delta_2026_04.md).
 - **Honest DiD bounds (Rambachan-Roth) computed.** The DiD result is fragile to plausible parallel-trend violations under the most policy-relevant honest restriction; primarily driven by a single noisy event-time horizon, not by pre-trend evidence. See [honest bounds memo](../analysis/did_honest_bounds.md).
+- **CalSavers CPRA exemption-filing request drafted.** The letter at [`deliverables/calsavers_cpra_request.md`](calsavers_cpra_request.md) requests California's administrative list of employers claiming exemption from CalSavers on the basis of having a private retirement plan. CA represents ~70% of the v3 dataset, so the exemption-filing list is a near-direct independent crosscheck. **Drafted but not yet sent;** awaiting project-owner review of the send-off checklist.
 
 ---
 
@@ -137,11 +138,11 @@ Full detail: [analysis/firm_level_analysis.md](../analysis/firm_level_analysis.m
 
 ## Open issues and what's coming next
 
-The project board has five candidate workstreams remaining. Highest-value next-step recommendation is in [`deliverables/next_step_recommendation.md`](next_step_recommendation.md): **the CalSavers CPRA exemption-filing request.** Reasoning summarized there.
+The project board has five candidate workstreams remaining. Highest-value next-step recommendation is in [`deliverables/next_step_recommendation.md`](next_step_recommendation.md): **the CalSavers CPRA exemption-filing request.** The letter has been drafted ([deliverables/calsavers_cpra_request.md](calsavers_cpra_request.md)) and is awaiting project-owner send-off review.
 
 | Candidate | Effort | Value | Status |
 |---|---|---|---|
-| **CalSavers CPRA exemption-filing request** | low (request letter; 2-8 wk wait) | high (independent state-administrative crosscheck on ~70% of dataset) | **Recommended next** |
+| **CalSavers CPRA exemption-filing request** | low (request letter; 2-8 wk wait) | high (independent state-administrative crosscheck on ~70% of dataset) | **Drafted; awaiting send** |
 | Expand qualitative evidence to 25-50 entries | medium | medium-high (mechanism inference; Workstream 5 explicitly required for mechanism) | Sprint 2 |
 | Census CBP 2024 data release watch + DiD re-run | low | low-medium (refines denominator; doesn't change ATT direction) | Passive (waiting on Census) |
 | Re-run DiD on Apr-2026 refreshed panel | medium | low (only +0.4% data change; late-cohort effect would shift modestly) | Optional |
