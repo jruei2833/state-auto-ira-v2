@@ -45,7 +45,7 @@ PROGRAM_NAMES = {
     "DE": "EARNS", "NJ": "RetireReady NJ",
 }
 
-YEARS = range(2017, 2026)  # 2026-04 refresh adds partial 2025
+YEARS = range(2017, 2025)
 
 F5500_COLS = {
     "pension": "TYPE_PENSION_BNFT_CODE",
@@ -208,9 +208,7 @@ def load_contributions():
 
 def save_version(deduped, mandate_dates, version_name, contrib_df):
     """Save dataset and supporting files for one version."""
-    # 2026-04 refresh: write to data/refresh_2026_04/<version> so the
-    # original v3 outputs at data/<version> remain untouched for comparison.
-    version_dir = os.path.join(BASE_DIR, "data", "refresh_2026_04", version_name)
+    version_dir = os.path.join(BASE_DIR, "data", version_name)
     os.makedirs(version_dir, exist_ok=True)
 
     # Join contributions
@@ -248,10 +246,8 @@ def main():
     print("State Auto-IRA 401(k) — Building BOTH Versions")
     print("=" * 60)
 
-    # 2026-04 refresh: write under data/refresh_2026_04/ to preserve v3
-    for d in ["data/refresh_2026_04/v1-inclusive",
-              "data/refresh_2026_04/v2-conservative",
-              "deliverables", "validation", "methodology"]:
+    # Ensure output dirs exist
+    for d in ["data/v1-inclusive", "data/v2-conservative", "deliverables", "validation", "methodology"]:
         os.makedirs(os.path.join(BASE_DIR, d), exist_ok=True)
 
     # Phase 1: Load all data with base filters (no date filter yet)
