@@ -5,6 +5,36 @@ form5500-raw-data/
 methodology/04 exp.txt
 methodology/MAC 2625-1-1.17 Is not defined as b.txt
 
-# Generated docx files are derived artifacts; the markdown is the source of truth
-deliverables/stakeholder_status_update.docx
-deliverables/calsavers_cpra_request.docx
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Build artifacts (markdown is source, docx is derived).
+# Keep stakeholder hand-off docx tracked so they're findable on GitHub
+# without requiring `make` first.
+deliverables/*.docx
+deliverables/archive/*.docx
+!deliverables/project_results_memo.docx
+!deliverables/count_reconciliation_memo.docx
+
+# R
+.Rhistory
+.RData
+.Ruserdata
+
+# Bulk data downloads (large, regenerable)
+data/bls_qcew/raw/
+data/census_susb/raw/
+data/dol_form5500/raw/
+*.zip
