@@ -1,0 +1,29 @@
+metric,value,as_of_date,source_url,notes
+Registered_employers,255793,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,"Total ""Registered"" status"
+Uploaded_roster,212443,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Started_payroll_deductions,64237,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Facilitated_deductions_last_90_days,41887,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Exempt_employers_cumulative,208412,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,Cumulative count of all employers who certified exemption
+Funded_accounts,599352,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Payroll_contributing_accounts,711760,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Multiple_employer_accounts,111833,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,Funded account holders linked to >1 registered employer
+Self_enrolled_funded_accounts,3226,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Effective_optout_rate_pct,35.40,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Total_assets_usd,1587939563,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Total_contributions_usd,1744084919,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,Cumulative since program launch
+Average_funded_balance_usd,2649,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Median_funded_balance_usd,660,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Withdrawals_amount_usd,463214435,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,Cumulative
+Wave_PriorWaves_employers_registered,141011,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,Pre-2025 deadlines (>=5 employees)
+Wave_PriorWaves_employers_exempted,93176,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Wave_4_employers_registered,109211,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,12/31/2025 deadline (1-4 employees)
+Wave_4_employers_exempted,110438,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Wave_2025_employers_registered,5571,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,New employers in 2025
+Wave_2025_employers_exempted,4798,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Total_estimated_eligible_employers,891271,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,Total population CalSavers attempted to contact
+Account_distribution_under_500_usd,268822,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,44.9% of funded accounts
+Account_distribution_500_to_1000_usd,77788,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Account_distribution_1000_to_2000_usd,75534,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Account_distribution_2000_to_5000_usd,84233,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Account_distribution_5000_to_10000_usd,49676,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,
+Account_distribution_over_10000_usd,43299,2025-12-31,https://www.treasurer.ca.gov/sites/default/files/2026-03/december_2025.pdf,

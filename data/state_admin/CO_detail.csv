@@ -1,0 +1,14 @@
+metric,value,as_of_date,source_url,notes
+Enrolled_employers,14332,2024-04-01,https://treasury.colorado.gov/sites/treasury/files/CSSP%20Annual%20Report%202024%20(1).pdf,CSSP 2024 Annual Board Report
+Verified_offer_retirement_plan,26000,2024-04-01,https://treasury.colorado.gov/sites/treasury/files/CSSP%20Annual%20Report%202024%20(1).pdf,Treated as cumulative-exemption-equivalent
+Open_accounts,68374,2024-04-01,https://treasury.colorado.gov/sites/treasury/files/CSSP%20Annual%20Report%202024%20(1).pdf,
+Funded_accounts,51814,2024-04-01,https://treasury.colorado.gov/sites/treasury/files/CSSP%20Annual%20Report%202024%20(1).pdf,
+Average_monthly_contribution_usd,194.08,2024-04-01,https://treasury.colorado.gov/sites/treasury/files/CSSP%20Annual%20Report%202024%20(1).pdf,
+Average_funded_account_balance_usd,940.96,2024-04-01,https://treasury.colorado.gov/sites/treasury/files/CSSP%20Annual%20Report%202024%20(1).pdf,
+Unregistered_employers,42000,2024-02-01,https://treasury.colorado.gov/sites/treasury/files/CSSP%20Annual%20Report%202024%20(1).pdf,Approximately as of February 2024
+Total_assets_usd,48000000,2024-04-01,https://treasury.colorado.gov/sites/treasury/files/CSSP%20Annual%20Report%202024%20(1).pdf,Over $48M
+Registered_employers_2025_08,17025,2025-08-31,https://treasury.colorado.gov/press-release/colorado-securesavings-surpasses-140-million-in-assets-as-strong-growth-continues,CO Treasury Aug 2025 press release
+Total_savers_2025_08,85000,2025-08-31,https://treasury.colorado.gov/press-release/colorado-securesavings-surpasses-140-million-in-assets-as-strong-growth-continues,
+Total_assets_usd_2025_08,140000000,2025-08-31,https://treasury.colorado.gov/press-release/colorado-securesavings-surpasses-140-million-in-assets-as-strong-growth-continues,
+Total_savers_2026_02,100000,2026-02-26,https://treasury.colorado.gov/press-release/colorado-securesavings-surges-past-100000-savers-with-robust-program-growth,Surges Past 100000 press release
+Registered_employers_2025_02,16600,2025-02-26,https://treasury.colorado.gov/press-release/colorado-securesavings-program-surpasses-100-million-in-retirement-savings,

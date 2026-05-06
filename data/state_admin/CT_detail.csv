@@ -1,0 +1,12 @@
+metric,value,as_of_date,source_url,notes
+Total_assets_usd,67360000,2026-05-01,https://osc.ct.gov/crsp/,Connecticut State Comptroller landing page (current snapshot)
+Active_savers,38209,2026-05-01,https://osc.ct.gov/crsp/,
+Registered_employers,7710,2026-05-01,https://osc.ct.gov/crsp/,
+Funded_accounts_assets_2025_12,N/A,2025-12-31,https://www.cttaxalert.com/2024/01/previously-exempt-employers-may-need-to-take-action-in-2024-under-the-myctsavings-program/,Number of employees with assets in MyCTSavings = 36307 as of Dec 31 2025 (cited in third-party tax alert)
+Exempt_employers_press_release_2023,10900,2023-10-18,https://osc.ct.gov/articles/comptroller-scanlon-highlights-continued-success-of-myctsavings-program-that-now-includes-over-20000-savers-10-million-in-assets-and-6000-registered-employers/,Comptroller press release ("over 10900 companies have certified they offer their own retirement plans")
+Total_savers_2023_10,20000,2023-10-18,https://osc.ct.gov/articles/comptroller-scanlon-highlights-continued-success-of-myctsavings-program-that-now-includes-over-20000-savers-10-million-in-assets-and-6000-registered-employers/,Press release "over 20000"
+Total_assets_usd_2023_10,10680000,2023-10-18,https://osc.ct.gov/articles/comptroller-scanlon-highlights-continued-success-of-myctsavings-program-that-now-includes-over-20000-savers-10-million-in-assets-and-6000-registered-employers/,$10.68M
+Registered_employers_2023_10,6000,2023-10-18,https://osc.ct.gov/articles/comptroller-scanlon-highlights-continued-success-of-myctsavings-program-that-now-includes-over-20000-savers-10-million-in-assets-and-6000-registered-employers/,More than 6000
+Registered_employers_FY2023,4414,2023-06-30,https://osc.ct.gov/wp-content/uploads/2025/03/CRSP-2023-Annual-Report-Final.pdf,FY2023 CRSP Annual Report
+Funded_savers_FY2023,15981,2023-06-30,https://osc.ct.gov/wp-content/uploads/2025/03/CRSP-2023-Annual-Report-Final.pdf,
+Total_assets_usd_FY2023,6500000,2023-06-30,https://osc.ct.gov/wp-content/uploads/2025/03/CRSP-2023-Annual-Report-Final.pdf,Over $6.5M
