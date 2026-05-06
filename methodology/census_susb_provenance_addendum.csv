@@ -1,9 +1,0 @@
-source,table,year,url,downloaded_on,rows_parsed,status,notes
-Census SUSB,us_state_naics_detailedsizes,2017,https://www2.census.gov/programs-surveys/susb/tables/2017/us_state_naics_detailedsizes_2017.xlsx,2026-05-06,357,OK,
-Census SUSB,us_state_naics_detailedsizes,2018,https://www2.census.gov/programs-surveys/susb/tables/2018/us_state_naics_detailedsizes_2018.xlsx,2026-05-06,357,OK,
-Census SUSB,us_state_naics_detailedsizes,2019,https://www2.census.gov/programs-surveys/susb/tables/2019/us_state_naics_detailedsizes_2019.xlsx,2026-05-06,357,OK,
-Census SUSB,us_state_naics_detailedsizes,2020,https://www2.census.gov/programs-surveys/susb/tables/2020/us_state_naics_detailedsizes_2020.xlsx,2026-05-06,357,OK,
-Census SUSB,us_state_naics_detailedsizes,2021,https://www2.census.gov/programs-surveys/susb/tables/2021/us_state_naics_detailedsizes_2021.xlsx,2026-05-06,357,OK,
-Census SUSB,us_state_naics_detailedsizes,2022,https://www2.census.gov/programs-surveys/susb/tables/2022/us_state_naics_detailedsizes_2022.xlsx,2026-05-06,357,OK,
-Census SUSB,us_state_naics_detailedsizes,2023,https://www2.census.gov/programs-surveys/susb/tables/2023/us_state_naics_detailedsizes_2023.xlsx,2026-05-06,0,NOT_RELEASED,SUSB has ~2-year release lag; 2023 expected late 2026. DiD panel uses 2022 carry-forward.
-Census SUSB,us_state_naics_detailedsizes,2024,https://www2.census.gov/programs-surveys/susb/tables/2024/us_state_naics_detailedsizes_2024.xlsx,2026-05-06,0,NOT_RELEASED,SUSB has ~2-year release lag; 2024 expected late 2027. DiD panel uses 2022 carry-forward.
