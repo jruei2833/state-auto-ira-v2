@@ -1,0 +1,18 @@
+metric,value,as_of_date,source_url,notes
+Businesses_enrolled_in_MarylandSaves,3812,2024-06-30,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,DLS Evaluation Dec 2024
+Businesses_actively_submitting_payroll,1189,2024-06-30,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,
+Funded_accounts,8744,2024-06-30,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,
+Total_assets_usd,9200000,2024-06-30,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,
+Average_funded_account_balance_usd,1050,2024-06-30,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,
+Median_funded_account_balance_usd,410,2024-06-30,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,
+Accounts_with_full_withdrawal,1399,2024-06-30,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,
+Full_withdrawal_rate_pct,14.22,2024-06-30,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,
+Average_deferral_rate_pct,5.4,2024-06-30,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,
+SDAT_fee_waiver_list_TY2023,22048,2023-12-31,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,Submitted by MarylandSaves to SDAT
+SDAT_entities_enrolled_TY2023,21958,2023-12-31,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,Reported by SDAT (some entities forfeited/dissolved)
+SDAT_fee_waivers_paid_TY2023,20727,2024-04-15,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,Annual reports filed with $300 fee waived
+SDAT_fee_waiver_list_TY2024,20200,2024-12-31,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,
+Fee_waiver_already_offer_plan,14100,2024-06-30,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,Approximately
+Fee_waiver_certified_program_exemption,5000,2024-06-30,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,Almost 5000 - business has certified exemption from program
+Fee_waiver_enrolled_in_MarylandSaves,3800,2024-06-30,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,Approximately
+Total_SDAT_filers,534000,2024-06-30,https://dls.maryland.gov/pubs/prod/TaxFiscalPlan/Evaluation-of-the-MD-Small-Business-Retirement-Savings-Program-2024.pdf,
