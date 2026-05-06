@@ -38,3 +38,6 @@ data/bls_qcew/raw/
 data/census_susb/raw/
 data/dol_form5500/raw/
 *.zip
+
+# Pre-v1/v2-split single-version build artifact (Feb 2026); regenerable
+data/processed/
