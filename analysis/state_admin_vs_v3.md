@@ -19,23 +19,36 @@ The "state-admin exemption count" is the cumulative number of employers that fil
 | MD | MarylandSaves | 3,556 | ~5,000 | 2024-06-30 | 1.41 | within 0.5x-2x |
 | CO | SecureSavings | 2,786 | ~26,000 | 2024-04-01 | 9.33 | flagged: above 2x |
 | VA | Commonwealth Savers (RetirePath) | 2,150 | not published | - | - | not comparable |
-| ME | MERIT | 143 | ~5,000 | 2026-01-05 | 34.97 | flagged: above 2x |
 | DE | Delaware EARNS | 132 | not published | - | - | not comparable |
 | NJ | RetireReady NJ | 603 | not published | - | - | not comparable |
+
+Maine is excluded from the headline comparison because of a small-denominator caveat — see "States with small-denominator caveat" subsection below. Maine remains in the underlying `data/state_admin/state_admin_summary.csv`; this is a presentation choice, not a data choice.
+
+## States with small-denominator caveat
+
+| state | program | v3 v2-conservative firms | state-admin exemption count | as-of date | ratio (admin / v3) |
+|-------|--------|-------:|-------:|---------|------:|
+| ME | MERIT | 143 | ~5,000 | 2026-01-05 | 34.97 |
+
+**Why Maine is set aside from the headline ratio comparison:** Maine's v3 v2-conservative firm count is only 143. The mandate effective date is 2024-01-01 — late in the panel — and the late-treatment cohort is subject to filing-lag bias (firms with 2024 effective dates may not yet have filed Form 5500). The denominator is therefore both small in absolute terms and biased downward. A ratio of 34.97x against any plausible state-admin exemption count is mechanically large under these conditions; it does not reflect a substantive finding about Maine's exemption-filing volume relative to its mandate response.
+
+The Maine row is retained in `data/state_admin/state_admin_summary.csv` and `data/state_admin/ME_detail.csv` for completeness. It should not anchor headline statements about state-admin vs. v3 divergence.
 
 **Notes on state-admin counts:**
 - **CA, OR, IL** publish exemption counts directly via monthly dashboards / board materials. These are clean cumulative-exemption figures.
 - **CO** published "26,000 verified offer retirement plan" in its April 2024 annual board report. By August 2025 the program had grown substantially; an updated cumulative-exemption figure is not in the latest press releases.
 - **CT** published "over 10,900 companies have certified they offer their own retirement plans" in an October 2023 Comptroller press release. CT does not appear to publish updated exemption counts; current Comptroller landing page shows registered/savers/AUM but not exemptions.
 - **MD** is structured differently: SDAT $300 fee waivers track entities providing a plan OR enrolled in MarylandSaves OR exempt due to fewer than 5 employees / new business / etc. The program-requirement-exemption subset (~5,000 in DLS 2024 Evaluation) is the closest analog to other states' exemption counts. Total fee-waiver list is ~22,048 (TY2023) — much larger than the program-only-exemption subset.
-- **ME** banner statistic "8,000+ Maine employers have registered or exempted" combined with the ~3,000 "participating" count from the Jan 2026 press release implies ~5,000 exempted. Exact split is not directly reported.
 - **VA, DE, NJ** publish program metrics (AUM, savers, registered employers) but **do NOT publish exemption counts.** This is a published-data limitation, not a research gap.
+- **ME** (set aside in the small-denominator caveat subsection above): banner statistic "8,000+ Maine employers have registered or exempted" combined with the ~3,000 "participating" count from the Jan 2026 press release implies ~5,000 exempted. Exact split is not directly reported.
 
 ## Flags requiring user review
 
 Per the spec, ratios outside 0.5x-2x require flagging.
 
-**Above 2x band (admin > 2x v3 conservative):** CA, OR, IL, CT, CO, ME
+**Above 2x band (admin > 2x v3 conservative):** CA, OR, IL, CT, CO
+
+(Maine is excluded from this list — see "States with small-denominator caveat" subsection above. Maine's 34.97x ratio is mechanical, not substantive.)
 
 **One-line hypothesis per outlier:**
 
@@ -48,8 +61,6 @@ Per the spec, ratios outside 0.5x-2x require flagging.
 - **CT (ratio 4.52):** Cited admin count is from October 2023 press release (10,900). CT mandate covers 5+ employee firms — the eligible universe is large relative to v3's "new 401(k)" denominator. Also, the 10,900 figure is now 2.5 years stale; current count is plausibly higher (no public update found).
 
 - **CO (ratio 9.33):** CO's "verified offer retirement plan" methodology auto-exempted ~26,000 employers based on Form 5500 lookups (per their April 2024 annual report). This is a *broader* identification than employer-self-certification and likely captures all 401(k)/403(b)/SEP/SIMPLE/etc. plan filings, which substantially exceeds the v3 "new 401(k) post-mandate" subset. CO is a particularly strong example of why the ratio is high: the state explicitly used 5500 to pre-identify exempt firms, and that universe is necessarily larger than the new-plan subset captured in v3 conservative.
-
-- **ME (ratio 34.97):** Smallest mandate state by v3 firm count (143). Even a few thousand pre-existing-plan exemptions produce a huge ratio. v3 conservative captures only 143 unique EINs because Maine is small and the new-401(k) post-mandate population is small in absolute terms, while the universe of all retirement-plan-providing Maine employers is several thousand. This ratio is mechanically large; not an indictment of either dataset.
 
 **Below 0.5x band:** none of the states with reported admin counts fall below 0.5x.
 
@@ -69,9 +80,10 @@ That said, the absolute *gap* between v3 firm counts and state-admin exemption c
 | status | count | states |
 |---|---|---|
 | within 0.5x-2x | 1 | MD |
-| above 2x (flagged) | 6 | CA, OR, IL, CT, CO, ME |
+| above 2x (flagged) | 5 | CA, OR, IL, CT, CO |
 | below 0.5x (flagged) | 0 | (none) |
 | not comparable (state doesn't publish exemption count) | 3 | VA, DE, NJ |
+| small-denominator caveat (excluded from headline ratio) | 1 | ME |
 
 ## Sources where conflicts were noted
 
